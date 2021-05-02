@@ -1,11 +1,13 @@
 import React from 'react';
+import PizzaConstructor from "./PixxaConstructor";
 
-function App() {
-  return (
-    <div className="App">
-      Pizza App
-    </div>
-  );
-}
+
+const App = () => {
+    return (
+        <div>
+            <PizzaConstructor/>
+        </div>
+    );
+};
 
 export default App;
