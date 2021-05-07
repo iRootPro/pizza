@@ -69,6 +69,7 @@ const PizzaConstructor = () => {
                 <div>
                     <label htmlFor="bigSize">Big
                         <input type="radio" name="size" value="big" id="bigSize" checked={"big" === size}
+                               data-testid="big"
                                onChange={() => setSize("big")}/>
                     </label>
                     <label htmlFor="smallSize">Small
@@ -79,6 +80,7 @@ const PizzaConstructor = () => {
                 <div>
                     <label htmlFor="doughThick">Thick
                         <input type="radio" name="dough" value="thick" id="doughThick" checked={"thick" === dough}
+                               data-testid="thick"
                                onChange={() => setDough("thick")}/>
                     </label>
                     <label htmlFor="doughThin">Thin
@@ -118,7 +120,7 @@ const PizzaConstructor = () => {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="vegetablesTomato">Tomato
+                    <label htmlFor="vegetablesTomato" data-testid="tomato">Tomato
                         <input type="checkbox" name="vegetables" value="tomato" id="vegetablesTomato"
                                checked={vegetables.includes("tomato")}
                                onChange={() => handleAddIngredient("vegetables", "tomato")}/>
