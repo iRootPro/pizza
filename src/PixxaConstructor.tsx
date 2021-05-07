@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import {FormEvent, useState} from 'react';
 
 const PRICES = {
     base: 200,
@@ -51,7 +51,7 @@ const PizzaConstructor = () => {
         setIsOrdered(true)
     }
 
-    let price = 200
+    let price = PRICES.base
     const calcPrice = () => {
         if (size === "big") {
             price += PRICES.sizeBig
