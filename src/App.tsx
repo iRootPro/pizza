@@ -1,5 +1,5 @@
 import React from 'react';
-import PizzaConstructor from "./PixxaConstructor";
+import PizzaConstructor from "./PizzaConstructor";
 
 
 const App = () => {

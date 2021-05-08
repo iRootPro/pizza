@@ -1,10 +1,5 @@
 import {FormEvent, useState} from 'react';
-
-const PRICES = {
-    base: 200,
-    sizeBig: 50,
-    ingredient: 29
-}
+import {calcPrice} from "./utils/calcPrice";
 
 const PizzaConstructor = () => {
     const [size, setSize] = useState<string>("big")
@@ -14,6 +9,8 @@ const PizzaConstructor = () => {
     const [vegetables, setVegetables] = useState<Array<string>>([])
     const [meat, setMeat] = useState<Array<string>>([])
     const [isOrdered, setIsOrdered] = useState<boolean>(false)
+
+    const totalPrice = calcPrice(size, cheese, vegetables, meat)
 
     const handleAddIngredient = (typeIngredient: string, ingredient: string) => {
         switch (typeIngredient) {
@@ -51,110 +48,99 @@ const PizzaConstructor = () => {
         setIsOrdered(true)
     }
 
-    let price = PRICES.base
-    const calcPrice = () => {
-        if (size === "big") {
-            price += PRICES.sizeBig
-        }
-        price += cheese.length * PRICES.ingredient
-        price += vegetables.length * PRICES.ingredient
-        price += meat.length * PRICES.ingredient
-    }
-
-    calcPrice()
 
     return (
         <>
             <form onSubmit={(evt) => handleSubmit(evt)}>
                 <div>
-                    <label htmlFor="bigSize">Big
+                    <label>Big
                         <input type="radio" name="size" value="big" id="bigSize" checked={"big" === size}
                                data-testid="big"
                                onChange={() => setSize("big")}/>
                     </label>
-                    <label htmlFor="smallSize">Small
+                    <label>Small
                         <input type="radio" name="size" value="big" id="smallSize" checked={"small" === size}
                                onChange={() => setSize("small")}/>
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="doughThick">Thick
+                    <label>Thick
                         <input type="radio" name="dough" value="thick" id="doughThick" checked={"thick" === dough}
                                data-testid="thick"
                                onChange={() => setDough("thick")}/>
                     </label>
-                    <label htmlFor="doughThin">Thin
+                    <label>Thin
                         <input type="radio" name="dough" value="thin" id="doughThin" checked={"thin" === dough}
                                onChange={() => setDough("thin")}/>
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="sauceTomato">Tomato
+                    <label>Tomato
                         <input type="radio" name="sauce" value="tomato" id="sauceTomato" checked={"tomato" === sauce}
                                onChange={() => setSauce("tomato")}/>
                     </label>
-                    <label htmlFor="sauceWhite">White
+                    <label>White
                         <input type="radio" name="sauce" value="white" id="sauceWhite" checked={"white" === sauce}
                                onChange={() => setSauce("white")}/>
                     </label>
-                    <label htmlFor="sauceSpicy">Spicy
+                    <label>Spicy
                         <input type="radio" name="sauce" value="spicy" id="sauceSpicy" checked={"spicy" === sauce}
                                onChange={() => setSauce("spicy")}/>
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="cheeseMozzarella">Mozzarella
+                    <label>Mozzarella
                         <input type="checkbox" name="cheese" value="mozzarella" id="cheeseMozzarella"
                                checked={cheese.includes("mozzarella")}
                                onChange={() => handleAddIngredient("cheese", "mozzarella")}/>
                     </label>
-                    <label htmlFor="cheeseCheddar">Cheddar
+                    <label>Cheddar
                         <input type="checkbox" name="cheese" value="cheddar" id="cheeseCheddar"
                                checked={cheese.includes("cheddar")}
                                onChange={() => handleAddIngredient("cheese", "cheddar")}/>
                     </label>
-                    <label htmlFor="cheeseDorBlue">Dor blue
+                    <label>Dor blue
                         <input type="checkbox" name="cheese" value="dorBlue" id="cheeseDorBlue"
                                checked={cheese.includes("dorBlue")}
                                onChange={() => handleAddIngredient("cheese", "dorBlue")}/>
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="vegetablesTomato" data-testid="tomato">Tomato
+                    <label data-testid="tomato">Tomato
                         <input type="checkbox" name="vegetables" value="tomato" id="vegetablesTomato"
                                checked={vegetables.includes("tomato")}
                                onChange={() => handleAddIngredient("vegetables", "tomato")}/>
                     </label>
-                    <label htmlFor="vegetablesMushrooms">Mushrooms
+                    <label>Mushrooms
                         <input type="checkbox" name="vegetables" value="mushrooms" id="vegetablesMushrooms"
                                checked={vegetables.includes("mushrooms")}
                                onChange={() => handleAddIngredient("vegetables", "mushrooms")}/>
                     </label>
-                    <label htmlFor="vegetablesPepper">Pepper
+                    <label>Pepper
                         <input type="checkbox" name="vegetables" value="pepper" id="vegetablesPepper"
                                checked={vegetables.includes("pepper")}
                                onChange={() => handleAddIngredient("vegetables", "pepper")}/>
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="meatBacon">Bacon
+                    <label>Bacon
                         <input type="checkbox" name="meat" value="bacon" id="meatBacon"
                                checked={meat.includes("bacon")}
                                onChange={() => handleAddIngredient("meat", "bacon")}/>
                     </label>
-                    <label htmlFor="meatPepperoni">Pepperoni
+                    <label>Pepperoni
                         <input type="checkbox" name="meat" value="pepperoni" id="meatPepperoni"
                                checked={meat.includes("pepperoni")}
                                onChange={() => handleAddIngredient("meat", "pepperoni")}/>
                     </label>
-                    <label htmlFor="meatHam">Ham
+                    <label>Ham
                         <input type="checkbox" name="meat" value="hum" id="meatHam"
                                checked={meat.includes("ham")}
                                onChange={() => handleAddIngredient("meat", "ham")}/>
                     </label>
                 </div>
                 <div>
-                    <button type="submit">Sum: {price}</button>
+                    <button type="submit">Sum: {totalPrice}</button>
                 </div>
             </form>
             <hr/>
@@ -168,7 +154,7 @@ const PizzaConstructor = () => {
                 {vegetables.length > 0 && <div>Vegetables: {vegetables.join(', ')}</div>}
                 {meat.length > 0 && <div>Meat: {meat.join(', ')}</div>}
                 <br/>
-                <div>Money: {price}</div>
+                <div>Money: {totalPrice}</div>
             </div>
             }
         </>
