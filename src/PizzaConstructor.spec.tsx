@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from "@testing-library/react"
-import PizzaConstructor from "./PixxaConstructor";
+import PizzaConstructor from "./PizzaConstructor";
 
 describe("PizzaConstructor", () => {
     it('renders correctly', () => {
