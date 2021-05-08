@@ -4,9 +4,12 @@ import PizzaConstructor from "./PizzaConstructor";
 
 const App = () => {
     return (
-        <div>
-            <PizzaConstructor/>
-        </div>
+        <>
+            Develop mode
+            <div>
+                <PizzaConstructor/>
+            </div>
+        </>
     );
 };
 
