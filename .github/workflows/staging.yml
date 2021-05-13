@@ -31,7 +31,7 @@ jobs:
           yarn install
           yarn build
           yarn test
-     
+
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env: 
@@ -41,6 +41,7 @@ jobs:
         with:
          environment: staging
          sourcemaps: ./build
+
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
